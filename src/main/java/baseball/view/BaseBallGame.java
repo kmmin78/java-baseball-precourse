@@ -1,10 +1,10 @@
-package baseball.domain;
+package baseball.view;
 
 import baseball.constants.AnswerResult;
 import baseball.constants.GameState;
 import baseball.controller.BaseBallController;
+import baseball.helper.MessagePrinter;
 import baseball.helper.RandomNumbersCreator;
-import baseball.view.BaseBallConsoleView;
 import camp.nextstep.edu.missionutils.Console;
 import java.util.List;
 import java.util.Map;
@@ -12,12 +12,12 @@ import java.util.Map;
 public class BaseBallGame {
 
     private final BaseBallController baseBallController;
-    private final BaseBallConsoleView baseBallConsoleView;
+    private final MessagePrinter messagePrinter;
     private List<Integer> randomNumbers;
 
     public BaseBallGame() {
         this.baseBallController = new BaseBallController();
-        this.baseBallConsoleView = new BaseBallConsoleView();
+        this.messagePrinter = new MessagePrinter();
     }
 
     private void initRandomNumbers() {
@@ -30,9 +30,9 @@ public class BaseBallGame {
             initRandomNumbers();
         }
 
-        baseBallConsoleView.startMessage();
+        messagePrinter.startMessage();
         final String answer = baseBallController.getPlayerInput();
-        baseBallConsoleView.inputMessage(answer);
+        messagePrinter.inputMessage(answer);
 
         //1. 정답을 검증한다.
         validateAnswer(answer);
@@ -52,7 +52,7 @@ public class BaseBallGame {
             baseBallController.validateAnswer(answer);
         } catch (IllegalArgumentException e) {
             final String errorMessage = e.getMessage();
-            baseBallConsoleView.printMessage(errorMessage);
+            messagePrinter.printMessage(errorMessage);
             throw new IllegalArgumentException(errorMessage);
         }
     }
@@ -68,20 +68,20 @@ public class BaseBallGame {
 
     private void decideNextAction(final Map<AnswerResult, Integer> allResult) {
         if (allResult.containsKey(AnswerResult.NOTHING)) {
-            baseBallConsoleView.printMessage("낫싱");
+            messagePrinter.printMessage("낫싱");
             start(false);
             return;
         }
         final StringBuilder builder = new StringBuilder();
         Integer strikeCount = 0;
         if (allResult.containsKey(AnswerResult.BALL)) {
-            builder.append(allResult.get(AnswerResult.BALL) + "볼 ");
+            builder.append(allResult.get(AnswerResult.BALL)).append("볼 ");
         }
         if (allResult.containsKey(AnswerResult.STRIKE)) {
             strikeCount = allResult.get(AnswerResult.STRIKE);
-            builder.append(strikeCount + "스트라이크");
+            builder.append(strikeCount).append("스트라이크");
         }
-        baseBallConsoleView.printMessage(builder.toString());
+        messagePrinter.printMessage(builder.toString());
 
         if (strikeCount == 3) {
             restartOrExit();
@@ -91,7 +91,7 @@ public class BaseBallGame {
     }
 
     private void restartOrExit() {
-        baseBallConsoleView.confirmMessage();
+        messagePrinter.confirmMessage();
         final String answer = Console.readLine();
         if (GameState.START.getState().equals(answer)) {
             start(true);
@@ -103,7 +103,7 @@ public class BaseBallGame {
     }
 
     private void exit() {
-        baseBallConsoleView.exitMessage();
+        messagePrinter.exitMessage();
     }
 
 }

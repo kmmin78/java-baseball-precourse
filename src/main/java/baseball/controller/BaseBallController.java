@@ -1,10 +1,7 @@
 package baseball.controller;
 
 import baseball.constants.AnswerResult;
-import baseball.helper.AnswerValidator;
-import baseball.helper.Converter;
 import baseball.service.BaseBallService;
-import camp.nextstep.edu.missionutils.Console;
 import java.util.List;
 import java.util.Map;
 
@@ -17,15 +14,15 @@ public class BaseBallController {
     }
 
     public String getPlayerInput() {
-        return Console.readLine();
+        return baseBallService.getPlayerInput();
     }
 
     public void validateAnswer(final String answer) throws IllegalArgumentException {
-        AnswerValidator.validateAnswer(answer);
+        baseBallService.validateAnswer(answer);
     }
 
     public List<Integer> convertAnswer(final String answer) {
-        return Converter.stringToList(answer);
+        return baseBallService.convertAnswer(answer);
     }
 
     public Map<AnswerResult, Integer> compareAnswer(final List<Integer> originAnswers,

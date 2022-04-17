@@ -1,6 +1,6 @@
-package baseball.view;
+package baseball.helper;
 
-public class BaseBallConsoleView {
+public class MessagePrinter {
 
     public void startMessage() {
         System.out.println("숫자를 입력하세요.");
