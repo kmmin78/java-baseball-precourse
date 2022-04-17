@@ -1,10 +1,7 @@
 package baseball;
 
-import static camp.nextstep.edu.missionutils.test.Assertions.assertSimpleTest;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import baseball.helper.AnswerValidator;
 import baseball.helper.RandomNumbersCreator;
 import baseball.helper.RandomNumbersValidator;
 import java.util.List;

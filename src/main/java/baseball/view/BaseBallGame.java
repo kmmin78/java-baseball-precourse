@@ -25,25 +25,15 @@ public class BaseBallGame {
     }
 
     public void start(final boolean initFlag) {
-
         if (initFlag) {
             initRandomNumbers();
         }
-
         messagePrinter.startMessage();
         final String answer = baseBallController.getPlayerInput();
         messagePrinter.inputMessage(answer);
-
-        //1. 정답을 검증한다.
         validateAnswer(answer);
-
-        //2. 정답을 다루기 쉬운 자료구조(List)로 변환한다.
         final List<Integer> answers = convertAnswer(answer);
-
-        //3. 정답을 비교한다.
         final Map<AnswerResult, Integer> allResult = compareAnswer(randomNumbers, answers);
-
-        //4. 결과를 통해 컴퓨터의 다음 행동을 결정한다.
         decideNextAction(allResult);
     }
 
@@ -69,9 +59,16 @@ public class BaseBallGame {
     private void decideNextAction(final Map<AnswerResult, Integer> allResult) {
         if (allResult.containsKey(AnswerResult.NOTHING)) {
             messagePrinter.printMessage("낫싱");
-            start(false);
+        }
+        Integer strikeCount = printStrikeAndBallMessageAndReturnStrikeCount(allResult);
+        if (strikeCount == 3) {
+            restartOrExit();
             return;
         }
+        start(false);
+    }
+
+    private Integer printStrikeAndBallMessageAndReturnStrikeCount(final Map<AnswerResult, Integer> allResult) {
         final StringBuilder builder = new StringBuilder();
         Integer strikeCount = 0;
         if (allResult.containsKey(AnswerResult.BALL)) {
@@ -82,12 +79,7 @@ public class BaseBallGame {
             builder.append(strikeCount).append("스트라이크");
         }
         messagePrinter.printMessage(builder.toString());
-
-        if (strikeCount == 3) {
-            restartOrExit();
-            return;
-        }
-        start(false);
+        return strikeCount;
     }
 
     private void restartOrExit() {

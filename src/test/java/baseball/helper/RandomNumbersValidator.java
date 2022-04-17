@@ -9,24 +9,16 @@ import java.util.Set;
 public class RandomNumbersValidator {
 
     public static boolean isValidRandomNumbers(final List<Integer> randomNumbers) {
-
         if (isNull(randomNumbers)) {
             return false;
         }
-
         if (isNotThreeLength(randomNumbers)) {
             return false;
         }
-
         if (isNotAllZero(randomNumbers)) {
             return false;
         }
-
-        if (isNotAllDistinctNumbers(randomNumbers)) {
-            return false;
-        }
-
-        return true;
+        return isAllDistinctNumbers(randomNumbers);
     }
 
     private static boolean isNotThreeLength(final List<Integer> randomNumbers) {
@@ -45,9 +37,9 @@ public class RandomNumbersValidator {
         return randomNumber != 0;
     }
 
-    private static boolean isNotAllDistinctNumbers(final List<Integer> randomNumbers) {
+    private static boolean isAllDistinctNumbers(final List<Integer> randomNumbers) {
         final Set<Integer> distinctNumbers = new HashSet<>(randomNumbers);
-        return distinctNumbers.size() != 3;
+        return distinctNumbers.size() == 3;
     }
 
 }

@@ -11,7 +11,9 @@ public class MessagePrinter {
     }
 
     public void printMessage(final String message) {
-        System.out.println(message);
+        if (message.length() > 0) {
+            System.out.println(message);
+        }
     }
 
     public void confirmMessage() {

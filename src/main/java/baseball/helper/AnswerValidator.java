@@ -8,7 +8,6 @@ import java.util.Set;
 public class AnswerValidator {
 
     public static void validateAnswer(final String answer) {
-
         if (isNotNumeric(answer)) {
             throw new IllegalArgumentException("숫자가 아닙니다.");
         }
@@ -21,7 +20,6 @@ public class AnswerValidator {
         if (isNotAllDistinctNumbers(answer)) {
             throw new IllegalArgumentException("각 숫자는 서로 달라야 합니다.");
         }
-
     }
 
     private static boolean isNotThreeLength(final String answer) {
