@@ -13,15 +13,22 @@ public class BaseBallGame {
 
     private final BaseBallController baseBallController;
     private final BaseBallConsoleView baseBallConsoleView;
-    private final List<Integer> randomNumbers;
+    private List<Integer> randomNumbers;
 
     public BaseBallGame() {
         this.baseBallController = new BaseBallController();
         this.baseBallConsoleView = new BaseBallConsoleView();
+    }
+
+    private void initRandomNumbers() {
         this.randomNumbers = RandomNumbersCreator.makeThreeRandomNumbers();
     }
 
-    public void start() {
+    public void start(final boolean initFlag) {
+
+        if (initFlag) {
+            initRandomNumbers();
+        }
 
         baseBallConsoleView.startMessage();
         final String answer = baseBallController.getPlayerInput();
@@ -37,7 +44,7 @@ public class BaseBallGame {
         final Map<AnswerResult, Integer> allResult = compareAnswer(randomNumbers, answers);
 
         //4. 결과를 통해 컴퓨터의 다음 행동을 결정한다.
-
+        decideNextAction(allResult);
     }
 
     private void validateAnswer(final String answer) {
@@ -59,21 +66,44 @@ public class BaseBallGame {
         return baseBallController.compareAnswer(originAnswers, playerAnswers);
     }
 
-    private void restartOrExit(final String message) {
-        baseBallConsoleView.printMessage(message);
+    private void decideNextAction(final Map<AnswerResult, Integer> allResult) {
+        if (allResult.containsKey(AnswerResult.NOTHING)) {
+            baseBallConsoleView.printMessage("낫싱");
+            start(false);
+            return;
+        }
+        final StringBuilder builder = new StringBuilder();
+        Integer strikeCount = 0;
+        if (allResult.containsKey(AnswerResult.BALL)) {
+            builder.append(allResult.get(AnswerResult.BALL) + "볼 ");
+        }
+        if (allResult.containsKey(AnswerResult.STRIKE)) {
+            strikeCount = allResult.get(AnswerResult.STRIKE);
+            builder.append(strikeCount + "스트라이크");
+        }
+        baseBallConsoleView.printMessage(builder.toString());
+
+        if (strikeCount == 3) {
+            restartOrExit();
+            return;
+        }
+        start(false);
+    }
+
+    private void restartOrExit() {
         baseBallConsoleView.confirmMessage();
         final String answer = Console.readLine();
-        if (GameState.valueOf(answer) == GameState.START) {
-            start();
+        if (GameState.START.getState().equals(answer)) {
+            start(true);
+            return;
         }
-        if (GameState.valueOf(answer) == GameState.END) {
+        if (GameState.END.getState().equals(answer)) {
             exit();
         }
     }
 
     private void exit() {
         baseBallConsoleView.exitMessage();
-        System.exit(0);
     }
 
 }

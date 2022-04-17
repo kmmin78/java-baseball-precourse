@@ -3,7 +3,6 @@ package baseball.view;
 public class BaseBallConsoleView {
 
     public void startMessage() {
-        System.out.println("야구게임이 시작되었습니다.");
         System.out.println("숫자를 입력하세요.");
     }
 
@@ -20,6 +19,6 @@ public class BaseBallConsoleView {
     }
 
     public void exitMessage() {
-        System.out.println("게임을 종료합니다.");
+        System.out.println("게임 종료.");
     }
 }
