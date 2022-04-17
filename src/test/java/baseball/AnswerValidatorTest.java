@@ -30,6 +30,18 @@ public class AnswerValidatorTest {
 
             }
 
+            @Test
+            @DisplayName("입력한 수에 0이 포함될 경우 IllegalArgumentException을 반환한다.")
+            void when_Arguments_Contains_Zero_Then_Throw_IllegalArgumentException() {
+
+                assertSimpleTest(() ->
+                        assertThatThrownBy(() -> AnswerValidator.validateAnswer("091"))
+                                .isInstanceOf(IllegalArgumentException.class)
+                );
+
+            }
+
+
         }
 
     }

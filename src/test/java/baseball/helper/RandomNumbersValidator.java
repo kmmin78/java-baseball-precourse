@@ -18,7 +18,7 @@ public class RandomNumbersValidator {
             return false;
         }
 
-        if (isNotAllRangeFromOneToNine(randomNumbers)) {
+        if (isNotAllZero(randomNumbers)) {
             return false;
         }
 
@@ -33,19 +33,16 @@ public class RandomNumbersValidator {
         return randomNumbers.size() != 3;
     }
 
-    private static boolean isNotAllRangeFromOneToNine(final List<Integer> randomNumbers) {
+    private static boolean isNotAllZero(final List<Integer> randomNumbers) {
         final Set<Boolean> results = new HashSet<>();
         for (final Integer number : randomNumbers) {
-            results.add(isRangeFromOneToNine(number));
+            results.add(isNotZero(number));
         }
         return results.contains(false);
     }
 
-    private static boolean isRangeFromOneToNine(final Integer randomNumber) {
-        if (randomNumber < 1) {
-            return false;
-        }
-        return randomNumber <= 9;
+    private static boolean isNotZero(final Integer randomNumber) {
+        return randomNumber != 0;
     }
 
     private static boolean isNotAllDistinctNumbers(final List<Integer> randomNumbers) {
