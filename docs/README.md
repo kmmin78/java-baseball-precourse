@@ -3,8 +3,9 @@
 - [x] 컴퓨터는 1부터 9까지 서로 다른 임의의 수 3개를 생성한다.
 - [x] 플레이어는 3개의 숫자를 입력할 수 있다.
   - [x] 플레이어가 정수가 아닌 값을 입력할 경우 IllegalArgumentException이 발생한다.
-  - [x] 플레이어가 입력한 수에 0이 포함될 경우
-    IllegalArgumentException이 발생한다.
+  - [x] 플레이어가 입력한 수에 0이 포함될 경우 IllegalArgumentException이 발생한다.
+  - [x] 플레이어가 입력한 수가 3자리가 아닐 경우 IllegalArgumentException이 발생한다.
+  - [x] 플레이어가 입력한 수가 서로 다르지 않을 경우 IllegalArgumentException이 발생한다.
 - [] 컴퓨터는 3개의 숫자에 대하여 다음과 같은 결과를 반환한다.
   - [] 컴퓨터는 같은 수가 같은 자리에 있으면 스트라이크를 반환한다.
   - [] 컴퓨터는 같은 수가 다른 자리에 있으면 볼을 반환한다.

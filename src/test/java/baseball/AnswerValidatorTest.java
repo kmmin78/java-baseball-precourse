@@ -41,6 +41,27 @@ public class AnswerValidatorTest {
 
             }
 
+            @Test
+            @DisplayName("입력한 수가 3자리가 아닐 경우 IllegalArgumentException을 반환한다.")
+            void when_Arguments_Not_Three_Length_Then_Throw_IllegalArgumentException() {
+
+                assertSimpleTest(() ->
+                        assertThatThrownBy(() -> AnswerValidator.validateAnswer("1912"))
+                                .isInstanceOf(IllegalArgumentException.class)
+                );
+
+            }
+
+            @Test
+            @DisplayName("입력한 수가 서로 다르지 않을 경우 IllegalArgumentException을 반환한다.")
+            void when_Arguments_Not_Distinct_Then_Throw_IllegalArgumentException() {
+
+                assertSimpleTest(() ->
+                        assertThatThrownBy(() -> AnswerValidator.validateAnswer("112"))
+                                .isInstanceOf(IllegalArgumentException.class)
+                );
+
+            }
 
         }
 
