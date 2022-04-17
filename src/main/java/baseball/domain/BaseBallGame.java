@@ -1,11 +1,13 @@
 package baseball.domain;
 
+import baseball.constants.AnswerResult;
 import baseball.constants.GameState;
 import baseball.controller.BaseBallController;
 import baseball.helper.RandomNumbersCreator;
 import baseball.view.BaseBallConsoleView;
 import camp.nextstep.edu.missionutils.Console;
 import java.util.List;
+import java.util.Map;
 
 public class BaseBallGame {
 
@@ -32,6 +34,10 @@ public class BaseBallGame {
         final List<Integer> answers = convertAnswer(answer);
 
         //3. 정답을 비교한다.
+        final Map<AnswerResult, Integer> allResult = compareAnswer(randomNumbers, answers);
+
+        //4. 결과를 통해 컴퓨터의 다음 행동을 결정한다.
+
     }
 
     private void validateAnswer(final String answer) {
@@ -46,6 +52,11 @@ public class BaseBallGame {
 
     private List<Integer> convertAnswer(final String answer) {
         return baseBallController.convertAnswer(answer);
+    }
+
+    private Map<AnswerResult, Integer> compareAnswer(final List<Integer> originAnswers,
+                                                     final List<Integer> playerAnswers) {
+        return baseBallController.compareAnswer(originAnswers, playerAnswers);
     }
 
     private void restartOrExit(final String message) {
