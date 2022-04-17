@@ -6,7 +6,7 @@ import java.util.Set;
 public class AnswerValidator {
 
     public static void validateAnswer(final String answer) {
-        if(isNotNumeric(answer)){
+        if (isNotNumeric(answer)) {
             throw new IllegalArgumentException("숫자가 아닙니다.");
         }
     }
